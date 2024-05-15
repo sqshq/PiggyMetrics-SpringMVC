@@ -1,0 +1,778 @@
+{
+  "openapi": "3.0.0",
+  "x-stoplight": {
+    "id": "c253fnn5ylkje"
+  },
+  "info": {
+    "title": "Topper REST API",
+    "version": "0.2.0"
+  },
+  "components": {
+    "schemas": {}
+  },
+  "paths": {
+    "/assets/crypto-onramp": {
+      "get": {
+        "summary": "Get supported assets for crypto-onramp",
+        "tags": [
+          "Assets"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "Success response",
+                  "properties": {
+                    "assets": {
+                      "properties": {
+                        "source": {
+                          "description": "List of assets that can be used as source",
+                          "items": {
+                            "properties": {
+                              "code": {
+                                "description": "Asset code",
+                                "example": "ETH",
+                                "type": "string"
+                              },
+                              "name": {
+                                "description": "Asset name",
+                                "example": "Ether",
+                                "type": "string"
+                              },
+                              "networks": {
+                                "description": "List of networks where this asset is supported",
+                                "items": {
+                                  "properties": {
+                                    "code": {
+                                      "description": "Network code",
+                                      "example": "ethereum",
+                                      "type": "string"
+                                    },
+                                    "name": {
+                                      "description": "Network name",
+                                      "example": "Ethereum Network",
+                                      "type": "string"
+                                    },
+                                    "priorities": {
+                                      "description": "Priorities supported for this network",
+                                      "items": {
+                                        "enum": [
+                                          "normal",
+                                          "fast"
+                                        ],
+                                        "example": "normal",
+                                        "type": "string"
+                                      },
+                                      "type": "array"
+                                    },
+                                    "tagTypes": {
+                                      "description": "Tag types supported for this network",
+                                      "items": {
+                                        "enum": [
+                                          "memo",
+                                          "destination-tag"
+                                        ],
+                                        "example": "memo",
+                                        "type": "string"
+                                      },
+                                      "type": "array"
+                                    }
+                                  },
+                                  "required": [
+                                    "code",
+                                    "priorities",
+                                    "tagTypes"
+                                  ],
+                                  "type": "object"
+                                },
+                                "type": "array"
+                              },
+                              "symbol": {
+                                "description": "Asset symbol",
+                                "example": "Ξ",
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "code",
+                              "name"
+                            ],
+                            "type": "object"
+                          },
+                          "type": "array"
+                        },
+                        "target": {
+                          "description": "List of assets that can be used as target",
+                          "items": {
+                            "properties": {
+                              "code": {
+                                "description": "Asset code",
+                                "example": "ETH",
+                                "type": "string"
+                              },
+                              "name": {
+                                "description": "Asset name",
+                                "example": "Ether",
+                                "type": "string"
+                              },
+                              "networks": {
+                                "description": "List of networks where this asset is supported",
+                                "items": {
+                                  "properties": {
+                                    "code": {
+                                      "description": "Network code",
+                                      "example": "ethereum",
+                                      "type": "string"
+                                    },
+                                    "name": {
+                                      "description": "Network name",
+                                      "example": "Ethereum Network",
+                                      "type": "string"
+                                    },
+                                    "priorities": {
+                                      "description": "Priorities supported for this network",
+                                      "items": {
+                                        "enum": [
+                                          "normal",
+                                          "fast"
+                                        ],
+                                        "example": "normal",
+                                        "type": "string"
+                                      },
+                                      "type": "array"
+                                    },
+                                    "tagTypes": {
+                                      "description": "Tag types supported for this network",
+                                      "items": {
+                                        "enum": [
+                                          "memo",
+                                          "destination-tag"
+                                        ],
+                                        "example": "memo",
+                                        "type": "string"
+                                      },
+                                      "type": "array"
+                                    }
+                                  },
+                                  "required": [
+                                    "code",
+                                    "priorities",
+                                    "tagTypes"
+                                  ],
+                                  "type": "object"
+                                },
+                                "type": "array"
+                              },
+                              "symbol": {
+                                "description": "Asset symbol",
+                                "example": "Ξ",
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "code",
+                              "name"
+                            ],
+                            "type": "object"
+                          },
+                          "type": "array"
+                        }
+                      },
+                      "required": [
+                        "source",
+                        "target"
+                      ],
+                      "type": "object"
+                    }
+                  },
+                  "required": [
+                    "assets"
+                  ],
+                  "type": "object"
+                }
+              }
+            }
+          }
+        },
+        "x-stoplight": {
+          "id": "t8w27whl8etyi"
+        }
+      }
+    },
+    "/countries": {
+      "get": {
+        "summary": "Get supported countries",
+        "tags": [
+          "Countries"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "Success response",
+                  "properties": {
+                    "countries": {
+                      "description": "List of supported countries",
+                      "items": {
+                        "properties": {
+                          "alpha2": {
+                            "description": "Country alpha2 ISO 3166-1 code",
+                            "example": "PT",
+                            "type": "string"
+                          },
+                          "alpha3": {
+                            "description": "Country alpha2 ISO 3166-2 code",
+                            "example": "PRT",
+                            "type": "string"
+                          },
+                          "name": {
+                            "description": "Country name",
+                            "example": "Portugal",
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "alpha2",
+                          "alpha3",
+                          "name"
+                        ],
+                        "type": "object"
+                      },
+                      "type": "array"
+                    }
+                  },
+                  "required": [
+                    "countries"
+                  ],
+                  "type": "object"
+                }
+              }
+            }
+          }
+        },
+        "x-stoplight": {
+          "id": "rkxlfec6lh5k9"
+        }
+      }
+    },
+    "/payment-methods/crypto-onramp": {
+      "get": {
+        "summary": "Get supported payment methods for crypto-onramp",
+        "tags": [
+          "Payment methods"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "Success response",
+                  "properties": {
+                    "paymentMethods": {
+                      "example": [
+                        {
+                          "billingAsset": "EUR",
+                          "countries": [
+                            "PT"
+                          ],
+                          "limits": [
+                            {
+                              "asset": "USD",
+                              "maximum": "2500",
+                              "minimum": "10"
+                            }
+                          ],
+                          "network": "card",
+                          "type": "credit-card"
+                        },
+                        {
+                          "billingAsset": "EUR",
+                          "countries": [
+                            "PT"
+                          ],
+                          "limits": [
+                            {
+                              "asset": "USD",
+                              "maximum": "2500",
+                              "minimum": "10"
+                            }
+                          ],
+                          "network": "apple-pay",
+                          "type": "apple-pay"
+                        }
+                      ],
+                      "items": {
+                        "properties": {
+                          "billingAsset": {
+                            "description": "Asset in which the user will be billed",
+                            "example": "EUR",
+                            "type": "string"
+                          },
+                          "countries": {
+                            "description": "List of countries alpha 2 codes in which this payment method is supported",
+                            "items": {
+                              "example": "PT",
+                              "type": "string"
+                            },
+                            "type": "array"
+                          },
+                          "limits": {
+                            "items": {
+                              "properties": {
+                                "asset": {
+                                  "description": "Asset code",
+                                  "example": "USD",
+                                  "type": "string"
+                                },
+                                "maximum": {
+                                  "description": "Maximum amount allowed to transact",
+                                  "example": "2500",
+                                  "type": "string"
+                                },
+                                "minimum": {
+                                  "description": "Minimum amount allowed to transact",
+                                  "example": "10",
+                                  "type": "string"
+                                }
+                              },
+                              "required": [
+                                "minimum",
+                                "asset",
+                                "maximum"
+                              ],
+                              "type": "object"
+                            },
+                            "type": "array"
+                          },
+                          "network": {
+                            "description": "Network associated with the payment method",
+                            "enum": [
+                              "card",
+                              "apple-pay",
+                              "google-pay"
+                            ],
+                            "type": "string"
+                          },
+                          "type": {
+                            "description": "The payment method type",
+                            "enum": [
+                              "credit-card",
+                              "debit-card",
+                              "apple-pay",
+                              "google-pay"
+                            ],
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "billingAsset",
+                          "countries",
+                          "type"
+                        ],
+                        "type": "object"
+                      },
+                      "type": "array"
+                    }
+                  },
+                  "required": [
+                    "paymentMethods"
+                  ],
+                  "type": "object"
+                }
+              }
+            }
+          }
+        },
+        "x-stoplight": {
+          "id": "ebsxikv6o1l9f"
+        }
+      }
+    },
+    "/simulations": {
+      "post": {
+        "summary": "Create simulation",
+        "tags": [
+          "Simulations"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {
+                  "bootstrapToken": {
+                    "description": "Bootstrap token, similar to one you would use to open Topper widget",
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "bootstrapToken"
+                ],
+                "type": "object"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Success response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "Success response",
+                  "properties": {
+                    "simulation": {
+                      "properties": {
+                        "destination": {
+                          "properties": {
+                            "amount": {
+                              "description": "Amount to be received",
+                              "example": "0.007889375921831504",
+                              "type": "string"
+                            },
+                            "asset": {
+                              "description": "Asset code",
+                              "example": "ETH",
+                              "type": "string"
+                            },
+                            "rate": {
+                              "description": "Exchange rate to the origin",
+                              "example": "0.00054522293862000722",
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "amount",
+                            "asset",
+                            "rate"
+                          ],
+                          "type": "object"
+                        },
+                        "fees": {
+                          "items": {
+                            "properties": {
+                              "amount": {
+                                "description": "Fee amount",
+                                "example": "1.62",
+                                "type": "string"
+                              },
+                              "asset": {
+                                "description": "Asset code",
+                                "example": "USD",
+                                "type": "string"
+                              },
+                              "type": {
+                                "description": "Fee type",
+                                "example": "network",
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "amount",
+                              "asset",
+                              "type"
+                            ],
+                            "type": "object"
+                          },
+                          "type": "array"
+                        },
+                        "origin": {
+                          "properties": {
+                            "amount": {
+                              "description": "Amount to pay",
+                              "example": "16.09",
+                              "type": "string"
+                            },
+                            "asset": {
+                              "description": "Asset code",
+                              "example": "USD",
+                              "type": "string"
+                            },
+                            "rate": {
+                              "description": "Exchange rate to the destination",
+                              "example": "1834.1121203210222296873",
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "amount",
+                            "asset",
+                            "rate"
+                          ],
+                          "type": "object"
+                        }
+                      },
+                      "required": [
+                        "destination",
+                        "fees",
+                        "origin"
+                      ],
+                      "type": "object"
+                    }
+                  },
+                  "required": [
+                    "simulation"
+                  ],
+                  "type": "object"
+                }
+              }
+            }
+          }
+        },
+        "x-stoplight": {
+          "id": "nh4a5n7cb11ii"
+        }
+      }
+    },
+    "/open-widget/{widgetId}": {
+      "get": {
+        "summary": "Generate a URL to open a widget",
+        "tags": [
+          "Open widgets"
+        ],
+        "description": "This endpoint generates a URL to open a widget where Topper facilitates signing",
+        "parameters": [
+          {
+            "schema": {
+              "type": "boolean"
+            },
+            "in": "query",
+            "name": "embed",
+            "required": false,
+            "description": "Enable embed mode"
+          },
+          {
+            "schema": {
+              "enum": [
+                "en",
+                "en-US",
+                "pt",
+                "pt-BR"
+              ]
+            },
+            "in": "query",
+            "name": "locale",
+            "required": false,
+            "description": "The locale to set the widget"
+          },
+          {
+            "schema": {
+              "type": "boolean"
+            },
+            "in": "query",
+            "name": "redirect",
+            "required": false,
+            "description": "Redirect instead of responding with the URL"
+          },
+          {
+            "schema": {
+              "format": "uuid",
+              "type": "string"
+            },
+            "in": "path",
+            "name": "widgetId",
+            "required": true,
+            "description": "The widget id to open"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "Success response",
+                  "properties": {
+                    "bootstrapToken": {
+                      "description": "The bootstrap token in case you want to open the widget using our SDK",
+                      "type": "string"
+                    },
+                    "url": {
+                      "description": "The URL to open up the widget",
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "url"
+                  ],
+                  "type": "object"
+                }
+              }
+            }
+          }
+        },
+        "x-stoplight": {
+          "id": "88dg9ljjuf7wh"
+        }
+      },
+      "post": {
+        "summary": "Generate a URL to open a widget",
+        "tags": [
+          "Open widgets"
+        ],
+        "description": "This endpoint generates a URL to open a widget where Topper facilitates signing",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "nullable": true,
+                "properties": {
+                  "source": {
+                    "description": "Configurations for the asset and amount to be paid",
+                    "properties": {
+                      "amount": {
+                        "description": "Amount to be paid from the source",
+                        "type": "string"
+                      },
+                      "asset": {
+                        "description": "Currency code in ISO 4217 format used to make the payment",
+                        "type": "string"
+                      }
+                    },
+                    "type": "object"
+                  },
+                  "target": {
+                    "description": "Configurations for the recipient wallet",
+                    "properties": {
+                      "address": {
+                        "description": "Recipient wallet address",
+                        "type": "string"
+                      },
+                      "amount": {
+                        "description": "Amount the user will receive",
+                        "type": "string"
+                      },
+                      "asset": {
+                        "description": "Cryptoasset the user will receive",
+                        "type": "string"
+                      },
+                      "label": {
+                        "description": "A label used for display purposes to name the recipient wallet",
+                        "type": "string"
+                      },
+                      "network": {
+                        "description": "Network of the receiving asset",
+                        "type": "string"
+                      },
+                      "recipientEditMode": {
+                        "description": "Controls if the user can change asset, network, address, and tag on the widget",
+                        "enum": [
+                          "not-editable",
+                          "only-address-and-tag",
+                          "all-editable"
+                        ],
+                        "type": "string"
+                      }
+                    },
+                    "type": "object"
+                  }
+                },
+                "type": "object"
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "schema": {
+              "type": "boolean"
+            },
+            "in": "query",
+            "name": "embed",
+            "required": false,
+            "description": "Enable embed mode"
+          },
+          {
+            "schema": {
+              "enum": [
+                "en",
+                "en-US",
+                "pt",
+                "pt-BR"
+              ]
+            },
+            "in": "query",
+            "name": "locale",
+            "required": false,
+            "description": "The locale to set the widget"
+          },
+          {
+            "schema": {
+              "type": "boolean"
+            },
+            "in": "query",
+            "name": "redirect",
+            "required": false,
+            "description": "Redirect instead of responding with the URL"
+          },
+          {
+            "schema": {
+              "format": "uuid",
+              "type": "string"
+            },
+            "in": "path",
+            "name": "widgetId",
+            "required": true,
+            "description": "The widget id to open"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "Success response",
+                  "properties": {
+                    "bootstrapToken": {
+                      "description": "The bootstrap token in case you want to open the widget using our SDK",
+                      "type": "string"
+                    },
+                    "url": {
+                      "description": "The URL to open up the widget",
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "url"
+                  ],
+                  "type": "object"
+                }
+              }
+            }
+          }
+        },
+        "x-stoplight": {
+          "id": "1fytixp5lbhk2"
+        }
+      }
+    }
+  },
+  "tags": [
+    {
+      "description": "Country related end-points",
+      "name": "Countries"
+    },
+    {
+      "description": "Asset related end-points",
+      "name": "Assets"
+    },
+    {
+      "description": "Payment methods related end-points",
+      "name": "Payment methods"
+    },
+    {
+      "description": "Simulation related end-points",
+      "name": "Simulations"
+    },
+    {
+      "description": "Open widget related end-points",
+      "name": "Open widgets"
+    }
+  ]
+}
