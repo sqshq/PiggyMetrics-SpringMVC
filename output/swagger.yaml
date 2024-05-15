@@ -1,0 +1,635 @@
+{
+  "openapi" : "3.0.0",
+  "info" : {
+    "title" : "Topper REST API",
+    "version" : "0.2.0"
+  },
+  "servers" : [ {
+    "url" : "/"
+  } ],
+  "tags" : [ {
+    "name" : "Countries",
+    "description" : "Country related end-points"
+  }, {
+    "name" : "Assets",
+    "description" : "Asset related end-points"
+  }, {
+    "name" : "Payment methods",
+    "description" : "Payment methods related end-points"
+  }, {
+    "name" : "Simulations",
+    "description" : "Simulation related end-points"
+  }, {
+    "name" : "Open widgets",
+    "description" : "Open widget related end-points"
+  } ],
+  "paths" : {
+    "/assets/crypto-onramp" : {
+      "get" : {
+        "tags" : [ "Assets" ],
+        "summary" : "Get supported assets for crypto-onramp",
+        "responses" : {
+          "200" : {
+            "description" : "Success response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_200"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/countries" : {
+      "get" : {
+        "tags" : [ "Countries" ],
+        "summary" : "Get supported countries",
+        "responses" : {
+          "200" : {
+            "description" : "Success response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_200_1"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/payment-methods/crypto-onramp" : {
+      "get" : {
+        "tags" : [ "Payment methods" ],
+        "summary" : "Get supported payment methods for crypto-onramp",
+        "responses" : {
+          "200" : {
+            "description" : "Success response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_200_2"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/simulations" : {
+      "post" : {
+        "tags" : [ "Simulations" ],
+        "summary" : "Create simulation",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/simulations_body"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "Success response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_200_3"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/open-widget/{widgetId}" : {
+      "get" : {
+        "tags" : [ "Open widgets" ],
+        "summary" : "Generate a URL to open a widget",
+        "description" : "This endpoint generates a URL to open a widget where Topper facilitates signing",
+        "parameters" : [ {
+          "name" : "embed",
+          "in" : "query",
+          "description" : "Enable embed mode",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "boolean"
+          }
+        }, {
+          "name" : "locale",
+          "in" : "query",
+          "description" : "The locale to set the widget",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string",
+            "enum" : [ "en", "en-US", "pt", "pt-BR" ]
+          }
+        }, {
+          "name" : "redirect",
+          "in" : "query",
+          "description" : "Redirect instead of responding with the URL",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "boolean"
+          }
+        }, {
+          "name" : "widgetId",
+          "in" : "path",
+          "description" : "The widget id to open",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string",
+            "format" : "uuid"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Success response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_200_4"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "Open widgets" ],
+        "summary" : "Generate a URL to open a widget",
+        "description" : "This endpoint generates a URL to open a widget where Topper facilitates signing",
+        "parameters" : [ {
+          "name" : "embed",
+          "in" : "query",
+          "description" : "Enable embed mode",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "boolean"
+          }
+        }, {
+          "name" : "locale",
+          "in" : "query",
+          "description" : "The locale to set the widget",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string",
+            "enum" : [ "en", "en-US", "pt", "pt-BR" ]
+          }
+        }, {
+          "name" : "redirect",
+          "in" : "query",
+          "description" : "Redirect instead of responding with the URL",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "boolean"
+          }
+        }, {
+          "name" : "widgetId",
+          "in" : "path",
+          "description" : "The widget id to open",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string",
+            "format" : "uuid"
+          }
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/openwidget_widgetId_body"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : "Success response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_200_4"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components" : {
+    "schemas" : {
+      "inline_response_200" : {
+        "required" : [ "assets" ],
+        "type" : "object",
+        "properties" : {
+          "assets" : {
+            "$ref" : "#/components/schemas/inline_response_200_assets"
+          }
+        },
+        "description" : "Success response"
+      },
+      "inline_response_200_1" : {
+        "required" : [ "countries" ],
+        "type" : "object",
+        "properties" : {
+          "countries" : {
+            "type" : "array",
+            "description" : "List of supported countries",
+            "items" : {
+              "$ref" : "#/components/schemas/inline_response_200_1_countries"
+            }
+          }
+        },
+        "description" : "Success response"
+      },
+      "inline_response_200_2" : {
+        "required" : [ "paymentMethods" ],
+        "type" : "object",
+        "properties" : {
+          "paymentMethods" : {
+            "type" : "array",
+            "example" : [ {
+              "billingAsset" : "EUR",
+              "countries" : [ "PT" ],
+              "limits" : [ {
+                "asset" : "USD",
+                "maximum" : "2500",
+                "minimum" : "10"
+              } ],
+              "network" : "card",
+              "type" : "credit-card"
+            }, {
+              "billingAsset" : "EUR",
+              "countries" : [ "PT" ],
+              "limits" : [ {
+                "asset" : "USD",
+                "maximum" : "2500",
+                "minimum" : "10"
+              } ],
+              "network" : "apple-pay",
+              "type" : "apple-pay"
+            } ],
+            "items" : {
+              "$ref" : "#/components/schemas/inline_response_200_2_paymentMethods"
+            }
+          }
+        },
+        "description" : "Success response"
+      },
+      "simulations_body" : {
+        "required" : [ "bootstrapToken" ],
+        "type" : "object",
+        "properties" : {
+          "bootstrapToken" : {
+            "type" : "string",
+            "description" : "Bootstrap token, similar to one you would use to open Topper widget"
+          }
+        }
+      },
+      "inline_response_200_3" : {
+        "required" : [ "simulation" ],
+        "type" : "object",
+        "properties" : {
+          "simulation" : {
+            "$ref" : "#/components/schemas/inline_response_200_3_simulation"
+          }
+        },
+        "description" : "Success response"
+      },
+      "inline_response_200_4" : {
+        "required" : [ "url" ],
+        "type" : "object",
+        "properties" : {
+          "bootstrapToken" : {
+            "type" : "string",
+            "description" : "The bootstrap token in case you want to open the widget using our SDK"
+          },
+          "url" : {
+            "type" : "string",
+            "description" : "The URL to open up the widget"
+          }
+        },
+        "description" : "Success response"
+      },
+      "openwidgetwidgetId_source" : {
+        "type" : "object",
+        "properties" : {
+          "amount" : {
+            "type" : "string",
+            "description" : "Amount to be paid from the source"
+          },
+          "asset" : {
+            "type" : "string",
+            "description" : "Currency code in ISO 4217 format used to make the payment"
+          }
+        },
+        "description" : "Configurations for the asset and amount to be paid"
+      },
+      "openwidgetwidgetId_target" : {
+        "type" : "object",
+        "properties" : {
+          "address" : {
+            "type" : "string",
+            "description" : "Recipient wallet address"
+          },
+          "amount" : {
+            "type" : "string",
+            "description" : "Amount the user will receive"
+          },
+          "asset" : {
+            "type" : "string",
+            "description" : "Cryptoasset the user will receive"
+          },
+          "label" : {
+            "type" : "string",
+            "description" : "A label used for display purposes to name the recipient wallet"
+          },
+          "network" : {
+            "type" : "string",
+            "description" : "Network of the receiving asset"
+          },
+          "recipientEditMode" : {
+            "type" : "string",
+            "description" : "Controls if the user can change asset, network, address, and tag on the widget",
+            "enum" : [ "not-editable", "only-address-and-tag", "all-editable" ]
+          }
+        },
+        "description" : "Configurations for the recipient wallet"
+      },
+      "openwidget_widgetId_body" : {
+        "type" : "object",
+        "properties" : {
+          "source" : {
+            "$ref" : "#/components/schemas/openwidgetwidgetId_source"
+          },
+          "target" : {
+            "$ref" : "#/components/schemas/openwidgetwidgetId_target"
+          }
+        },
+        "nullable" : true
+      },
+      "inline_response_200_assets_networks" : {
+        "required" : [ "code", "priorities", "tagTypes" ],
+        "type" : "object",
+        "properties" : {
+          "code" : {
+            "type" : "string",
+            "description" : "Network code",
+            "example" : "ethereum"
+          },
+          "name" : {
+            "type" : "string",
+            "description" : "Network name",
+            "example" : "Ethereum Network"
+          },
+          "priorities" : {
+            "type" : "array",
+            "description" : "Priorities supported for this network",
+            "items" : {
+              "type" : "string",
+              "example" : "normal",
+              "enum" : [ "normal", "fast" ]
+            }
+          },
+          "tagTypes" : {
+            "type" : "array",
+            "description" : "Tag types supported for this network",
+            "items" : {
+              "type" : "string",
+              "example" : "memo",
+              "enum" : [ "memo", "destination-tag" ]
+            }
+          }
+        }
+      },
+      "inline_response_200_assets_source" : {
+        "required" : [ "code", "name" ],
+        "type" : "object",
+        "properties" : {
+          "code" : {
+            "type" : "string",
+            "description" : "Asset code",
+            "example" : "ETH"
+          },
+          "name" : {
+            "type" : "string",
+            "description" : "Asset name",
+            "example" : "Ether"
+          },
+          "networks" : {
+            "type" : "array",
+            "description" : "List of networks where this asset is supported",
+            "items" : {
+              "$ref" : "#/components/schemas/inline_response_200_assets_networks"
+            }
+          },
+          "symbol" : {
+            "type" : "string",
+            "description" : "Asset symbol",
+            "example" : "Ξ"
+          }
+        }
+      },
+      "inline_response_200_assets" : {
+        "required" : [ "source", "target" ],
+        "type" : "object",
+        "properties" : {
+          "source" : {
+            "type" : "array",
+            "description" : "List of assets that can be used as source",
+            "items" : {
+              "$ref" : "#/components/schemas/inline_response_200_assets_source"
+            }
+          },
+          "target" : {
+            "type" : "array",
+            "description" : "List of assets that can be used as target",
+            "items" : {
+              "$ref" : "#/components/schemas/inline_response_200_assets_source"
+            }
+          }
+        }
+      },
+      "inline_response_200_1_countries" : {
+        "required" : [ "alpha2", "alpha3", "name" ],
+        "type" : "object",
+        "properties" : {
+          "alpha2" : {
+            "type" : "string",
+            "description" : "Country alpha2 ISO 3166-1 code",
+            "example" : "PT"
+          },
+          "alpha3" : {
+            "type" : "string",
+            "description" : "Country alpha2 ISO 3166-2 code",
+            "example" : "PRT"
+          },
+          "name" : {
+            "type" : "string",
+            "description" : "Country name",
+            "example" : "Portugal"
+          }
+        }
+      },
+      "inline_response_200_2_limits" : {
+        "required" : [ "asset", "maximum", "minimum" ],
+        "type" : "object",
+        "properties" : {
+          "asset" : {
+            "type" : "string",
+            "description" : "Asset code",
+            "example" : "USD"
+          },
+          "maximum" : {
+            "type" : "string",
+            "description" : "Maximum amount allowed to transact",
+            "example" : "2500"
+          },
+          "minimum" : {
+            "type" : "string",
+            "description" : "Minimum amount allowed to transact",
+            "example" : "10"
+          }
+        }
+      },
+      "inline_response_200_2_paymentMethods" : {
+        "required" : [ "billingAsset", "countries", "type" ],
+        "type" : "object",
+        "properties" : {
+          "billingAsset" : {
+            "type" : "string",
+            "description" : "Asset in which the user will be billed",
+            "example" : "EUR"
+          },
+          "countries" : {
+            "type" : "array",
+            "description" : "List of countries alpha 2 codes in which this payment method is supported",
+            "items" : {
+              "type" : "string",
+              "example" : "PT"
+            }
+          },
+          "limits" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/inline_response_200_2_limits"
+            }
+          },
+          "network" : {
+            "type" : "string",
+            "description" : "Network associated with the payment method",
+            "enum" : [ "card", "apple-pay", "google-pay" ]
+          },
+          "type" : {
+            "type" : "string",
+            "description" : "The payment method type",
+            "enum" : [ "credit-card", "debit-card", "apple-pay", "google-pay" ]
+          }
+        }
+      },
+      "inline_response_200_3_simulation_destination" : {
+        "required" : [ "amount", "asset", "rate" ],
+        "type" : "object",
+        "properties" : {
+          "amount" : {
+            "type" : "string",
+            "description" : "Amount to be received",
+            "example" : "0.007889375921831504"
+          },
+          "asset" : {
+            "type" : "string",
+            "description" : "Asset code",
+            "example" : "ETH"
+          },
+          "rate" : {
+            "type" : "string",
+            "description" : "Exchange rate to the origin",
+            "example" : "0.00054522293862000722"
+          }
+        }
+      },
+      "inline_response_200_3_simulation_fees" : {
+        "required" : [ "amount", "asset", "type" ],
+        "type" : "object",
+        "properties" : {
+          "amount" : {
+            "type" : "string",
+            "description" : "Fee amount",
+            "example" : "1.62"
+          },
+          "asset" : {
+            "type" : "string",
+            "description" : "Asset code",
+            "example" : "USD"
+          },
+          "type" : {
+            "type" : "string",
+            "description" : "Fee type",
+            "example" : "network"
+          }
+        }
+      },
+      "inline_response_200_3_simulation_origin" : {
+        "required" : [ "amount", "asset", "rate" ],
+        "type" : "object",
+        "properties" : {
+          "amount" : {
+            "type" : "string",
+            "description" : "Amount to pay",
+            "example" : "16.09"
+          },
+          "asset" : {
+            "type" : "string",
+            "description" : "Asset code",
+            "example" : "USD"
+          },
+          "rate" : {
+            "type" : "string",
+            "description" : "Exchange rate to the destination",
+            "example" : "1834.1121203210222296873"
+          }
+        }
+      },
+      "inline_response_200_3_simulation" : {
+        "required" : [ "destination", "fees", "origin" ],
+        "type" : "object",
+        "properties" : {
+          "destination" : {
+            "$ref" : "#/components/schemas/inline_response_200_3_simulation_destination"
+          },
+          "fees" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/inline_response_200_3_simulation_fees"
+            }
+          },
+          "origin" : {
+            "$ref" : "#/components/schemas/inline_response_200_3_simulation_origin"
+          }
+        }
+      }
+    }
+  }
+}
