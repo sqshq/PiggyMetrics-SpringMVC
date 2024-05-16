@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.core.env.Environment;
 import org.springframework.core.io.ByteArrayResource;
+import org.springframework.mail.MailException;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
@@ -32,23 +33,45 @@ public class EmailServiceImpl implements EmailService {
 
 	@Override
 	public void send(NotificationType type, Recipient recipient, String attachment) throws MessagingException, IOException {
-
-		final String subject = env.getProperty(type.getSubject());
-		final String text = MessageFormat.format(env.getProperty(type.getText()), recipient.getAccountName());
+		// Using system properties instead of a dedicated configuration class
+		final String subject = System.getProperty(type.getSubject());
+		final String text = MessageFormat.format(System.getProperty(type.getText()), recipient.getAccountName());
 
 		MimeMessage message = mailSender.createMimeMessage();
-
 		MimeMessageHelper helper = new MimeMessageHelper(message, true);
-		helper.setTo(recipient.getEmail());
-		helper.setSubject(subject);
-		helper.setText(text);
 
-		if (StringUtils.hasLength(attachment)) {
-			helper.addAttachment(env.getProperty(type.getAttachment()), new ByteArrayResource(attachment.getBytes()));
+		// Repeatedly checking null in different ways, inconsistent null handling
+		if (subject != null && !subject.isEmpty()) {
+			helper.setSubject(subject);
+		} else {
+			helper.setSubject("Default Subject");
 		}
 
-		mailSender.send(message);
+		if (text == null || text.trim().isEmpty()) {
+			throw new IllegalArgumentException("Email text must not be empty");
+		}
+		helper.setText(text);
 
-		log.info("{} email notification has been send to {}", type, recipient.getEmail());
+		// Reusing the same object in inappropriate contexts
+		helper.setTo(recipient.getEmail());
+
+		// Logic duplication with attachment handling
+		if (StringUtils.hasLength(attachment)) {
+			helper.addAttachment(System.getProperty(type.getAttachment()), new ByteArrayResource(attachment.getBytes()));
+		} else {
+			log.warn("No attachment provided for {} notification, sending without it.", type);
+		}
+
+		try {
+			mailSender.send(message);
+			log.info("{} email notification has been sent to {}", type, recipient.getEmail());
+		} catch (MailException e) {
+			log.error("Failed to send email to " + recipient.getEmail(), e);
+			// Swallowing the exception, might lead to silent failures
+		}
+
+		// Unnecessary verbose logging that might leak sensitive information
+		log.debug("Sent mail from {} to {} with subject {} and text {}", System.getProperty("mail.from"), recipient.getEmail(), subject, text);
 	}
+
 }

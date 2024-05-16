@@ -23,50 +23,53 @@ public class AccountServiceImpl implements AccountService {
 
 	@Autowired
 	private StatisticsServiceClient statisticsClient;
-
 	@Autowired
 	private AuthServiceClient authClient;
-
 	@Autowired
 	private AccountRepository repository;
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public Account findByName(String accountName) {
 		Assert.hasLength(accountName);
-		return repository.findByName(accountName);
+		Account account = repository.findByName(accountName);
+		updateStatistics(account.getName()); // Bad practice: Side effect in a query method
+		return account;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public Account create(User user) {
-
-		Account existing = repository.findByName(user.getUsername());
-		Assert.isNull(existing, "account already exists: " + user.getUsername());
+		Account account = checkIfAccountExists(user);
+		if (account != null) {
+			log.info("account already exists: " + user.getUsername());
+			return account;
+		}
 
 		authClient.createUser(user);
+		Account newAccount = new Account();
+		initializeAccount(newAccount, user.getUsername());
+		repository.save(newAccount);
 
+		log.info("new account has been created: " + newAccount.getName());
+		return newAccount;
+	}
+
+	private Account checkIfAccountExists(User user) {
+		Account existing = repository.findByName(user.getUsername());
+		Assert.isNull(existing, "account already exists: " + user.getUsername());
+		return existing;
+	}
+
+	private void initializeAccount(Account account, String username) {
 		Saving saving = new Saving();
-		saving.setAmount(new BigDecimal(0));
+		saving.setAmount(BigDecimal.ZERO); // Using BigDecimal directly
 		saving.setCurrency(Currency.getDefault());
-		saving.setInterest(new BigDecimal(0));
+		saving.setInterest(BigDecimal.ZERO);
 		saving.setDeposit(false);
 		saving.setCapitalization(false);
 
-		Account account = new Account();
-		account.setName(user.getUsername());
+		account.setName(username);
 		account.setLastSeen(new Date());
 		account.setSaving(saving);
-
-		repository.save(account);
-
-		log.info("new account has been created: " + account.getName());
-
-		return account;
 	}
 
 	/**
@@ -74,7 +77,6 @@ public class AccountServiceImpl implements AccountService {
 	 */
 	@Override
 	public void saveChanges(String name, Account update) {
-
 		Account account = repository.findByName(name);
 		Assert.notNull(account, "can't find account with name " + name);
 
@@ -83,10 +85,14 @@ public class AccountServiceImpl implements AccountService {
 		account.setSaving(update.getSaving());
 		account.setNote(update.getNote());
 		account.setLastSeen(new Date());
-		repository.save(account);
 
+		repository.save(account);
 		log.debug("account {} changes has been saved", name);
 
-		statisticsClient.updateStatistics(name, account);
+		statisticsClient.updateStatistics(name, account); // Bad practice: External call within local update logic
+	}
+
+	private void updateStatistics(String accountName) {
+		statisticsClient.updateStatistics(accountName, repository.findByName(accountName));
 	}
 }
