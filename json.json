@@ -277,11 +277,32 @@
                 }
               }
             }
+          },
+          "202": {
+            "description": "Accepted",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "foo": {
+                      "type": "string"
+                    }
+                  },
+                  "x-examples": {
+                    "Example 1": {
+                      "foo": "bar"
+                    }
+                  }
+                }
+              }
+            }
           }
         },
         "x-stoplight": {
           "id": "rkxlfec6lh5k9"
-        }
+        },
+        "parameters": []
       }
     },
     "/payment-methods/crypto-onramp": {
@@ -798,6 +819,12 @@
     {
       "description": "Open widget related end-points",
       "name": "Open widgets"
+    }
+  ],
+  "servers": [
+    {
+      "url": "",
+      "description": ""
     }
   ]
 }
