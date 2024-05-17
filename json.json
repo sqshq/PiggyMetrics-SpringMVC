@@ -252,24 +252,34 @@
                   "type": "object"
                 },
                 "examples": {
-                  "Example 1": {
+                  "European Countries": {
                     "value": {
                       "countries": [
                         {
-                          "alpha2": "PT",
-                          "alpha3": "PRT",
+                          "alpha2": "PT-pt",
+                          "alpha3": "PT",
                           "name": "Portugal"
+                        },
+                        {
+                          "alpha2": "FR-fr",
+                          "alpha3": "Fr",
+                          "name": "France"
                         }
                       ]
                     }
                   },
-                  "Example 2": {
+                  "LATAM": {
                     "value": {
                       "countries": [
                         {
-                          "alpha2": "SP",
-                          "alpha3": "SPN",
-                          "name": "Spain"
+                          "alpha2": "Bz",
+                          "alpha3": "Bra",
+                          "name": "Brazil"
+                        },
+                        {
+                          "alpha2": "Ag",
+                          "alpha3": "Arg",
+                          "name": "Argentina"
                         }
                       ]
                     }
@@ -823,8 +833,8 @@
   ],
   "servers": [
     {
-      "url": "",
-      "description": ""
+      "url": "https://rest-server.topper-rest-api.enterprise.engineering-development.uphold.aws",
+      "description": "Live"
     }
   ]
 }
