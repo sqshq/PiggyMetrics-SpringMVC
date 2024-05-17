@@ -198,7 +198,8 @@
         },
         "x-stoplight": {
           "id": "t8w27whl8etyi"
-        }
+        },
+        "operationId": ""
       }
     },
     "/countries": {
@@ -249,6 +250,30 @@
                     "countries"
                   ],
                   "type": "object"
+                },
+                "examples": {
+                  "Example 1": {
+                    "value": {
+                      "countries": [
+                        {
+                          "alpha2": "PT",
+                          "alpha3": "PRT",
+                          "name": "Portugal"
+                        }
+                      ]
+                    }
+                  },
+                  "Example 2": {
+                    "value": {
+                      "countries": [
+                        {
+                          "alpha2": "SP",
+                          "alpha3": "SPN",
+                          "name": "Spain"
+                        }
+                      ]
+                    }
+                  }
                 }
               }
             }
